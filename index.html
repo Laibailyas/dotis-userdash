@@ -1106,7 +1106,8 @@ function renderActivity() {
 
 function renderHistory(bal) {
   var el = document.getElementById('history-list');
-  if (bal === 0) { el.innerHTML = '<div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="empty-title">No donations yet</div><div class="empty-desc">Connect a device and start sharing bandwidth to generate your first contribution.</div></div>'; return; }
+  if (!el) return;
+  if (bal === 0 && DONATIONS.length === 0) { el.innerHTML = '<div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="empty-title">No donations yet</div><div class="empty-desc">Connect a device and start sharing bandwidth to generate your first contribution.</div></div>'; return; }
   el.innerHTML = DONATIONS.map(function(d) {
     return '<div class="list-item"><div class="list-left"><div class="list-ico ' + (d.proof?'gr':'am') + '"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="item-name">' + d.name + '</div><div class="item-sub">' + d.date + ' &middot; ' + d.cause + '</div></div></div><div class="item-right"><div class="item-val">+' + fmt2(d.amount) + '</div><div class="item-tag">' + d.ref + '</div></div></div>';
   }).join('');
@@ -1133,7 +1134,8 @@ function renderCampaigns() {
 
 function renderProof(bal) {
   var el = document.getElementById('proof-list');
-  if (bal === 0) { el.innerHTML = '<div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="empty-title">No records yet</div><div class="empty-desc">Donations will appear here once you start sharing bandwidth.</div></div>'; return; }
+  if (!el) return;
+  if (bal === 0 && DONATIONS.length === 0) { el.innerHTML = '<div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="empty-title">No records yet</div><div class="empty-desc">Donations will appear here once you start sharing bandwidth.</div></div>'; return; }
   el.innerHTML = DONATIONS.map(function(d) {
     var bg = d.proof ? 'var(--green-dim)' : 'var(--amber-dim)';
     var ic = d.proof ? 'var(--leaf)' : 'var(--amber)';
